@@ -1,9 +1,17 @@
 /////////////////// General
 
-$content_padding_top: 24px;
+$content_padding_top: 0px;
 $content-padding-bottom: 10px;
 $header-height: 75px;
 $footer-height: 125.5px;
+
+$container-width-xxl: 1400px;
+$container-width-xl: 1140px;
+$container-width-lg: 960px;
+$container-width-md: 720px;
+$container-width-sm: 540px;
+$container-width-xs: 100%;
+
 
 body, body.view-profile {
   min-height: initial;
@@ -18,6 +26,10 @@ body, body.view-profile {
   border-radius: 0;
 }
 
+.nav-links .secondary{
+  margin-right: 0px !important;
+}
+
 %t-title {
   font-family: $font-family-title;
 }
@@ -26,12 +38,40 @@ h1, h2, h3, h1 span, h2 span, h3 span, .nav-item {
   font-family: $font-family-title;
 }
 
-#content.content-wrapper {
-  @include media-breakpoint-up(lg) {
-    padding-top: $content-padding-top;
-    padding-bottom: $content-padding-bottom;
-    margin-top: 75px;
+@mixin responsive {
+  @include media-breakpoint-down(sm) {
+    width: $container-width-xs;
   }
+  @include media-breakpoint-up(sm) {
+    width: $container-width-sm;
+  }
+  @include media-breakpoint-up(md) {
+    width: $container-width-md;
+  }
+  @include media-breakpoint-up(lg) {
+    width: $container-width-lg;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: $container-width-xl;
+  }
+  @media(min-width:1440px) {
+    width: $container-width-xxl;
+  }
+
+}
+
+
+
+
+#content.content-wrapper {
+  padding-top: $content-padding-top;
+  padding-bottom: $content-padding-bottom;
+
+
+
+  margin-left: auto;
+  margin-right: auto;
   min-height: calc(100vh - #{$header-height + $content-padding-top + $content-padding-bottom + $footer-height}); // sticky footer
 }
 
@@ -46,9 +86,69 @@ header.global-header {
     top: 0;
     z-index: 200; // necessary to keep the header on top of other elements
   }
+  
+  * {
+    color: #fff !important;
+ }
+
+ .main-header{
+  @include responsive;
+
+ }
+
+ .mobile-menu *{
+  color: $primary !important;
+}
+
+ .sign-in-btn, .register-btn {
+   background: transparent !important;
+   color: #fff !important;
+   border: none !important;
+
+ }
+
+  box-shadow: none;
+  background: linear-gradient(165deg, $primary, #232569);
+  color: #fff;
+
+}
+
+
+.main-header {
+  @include media-breakpoint-up(md) {
+    width: $container-width-md;
+    margin: 0 auto;
+    z-index: 200; // necessary to keep the header on top of other elements
+  }
+  //background-color: #4c61bf;// TODO recommandé par clem
+  box-shadow: none;
+  color: #fff;
+
+}
+
+#footer-openedx {
+  @include media-breakpoint-up(md) {
+    width: 800px;
+    margin: 0 auto;
+    z-index: 200; // necessary to keep the header on top of other elements
+  }
   //background-color: #4c61bf;// TODO recommandé par clem
   box-shadow: none;
 }
+
+
+.header-logo a {
+  @include media-breakpoint-down(md){
+    margin-left: 50% !important;
+
+  }
+
+  margin-left: 0px !important;
+
+}
+
+
+
 
 header.global-header .nav-links .secondary .user-image-frame {
   border-radius: 0;
@@ -56,7 +156,24 @@ header.global-header .nav-links .secondary .user-image-frame {
 
 header.global-header .nav-links .secondary .dropdown-user-menu {
   position: fixed;
+
+  @include media-breakpoint-down(lg){
+    right: 60px;
+  }
+
+  @include media-breakpoint-down(xl){
+    right: 60px;
+  }
+
+  @media screen and (min-width:1680px){
+    right: 200px;
+  }
+
+  *{
+  color: $primary !important;
 }
+}
+
 
 /////////////////// Home page
 .home header {
@@ -91,7 +208,13 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
 ////////////////// User dashboard /dashboard
 .dashboard .main-container {
   padding: initial;
+
+  .my-courses{
+    padding: 10px;
+  }
 }
+
+
 
 ////////////////// Course about page
 .course-info header.course-profile {
@@ -105,28 +228,45 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
   }
 }
 
+section .course-profile{
+  padding-top: 50px !important;
+
+}
+
+
+
+
+.learn-more,
+.register {
+  color: $primary;
+  background: var(--primary-light) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 !important;
+  border: 0;
+}
+
 .course-info {
   .container {
     padding-bottom: 0;
+    margin: 30px !important;
   }
   .details .inner-wrapper > section {
     margin-bottom: 0;
   }
   header.course-profile .intro-inner-wrapper .intro .main-cta {
+
     span.register {
-      @extend %t-copy-base;
+      background-color: $primary !important;
+      color: #fff !important;
       padding: 10px 0;
-    }
-    strong {
-      background-image: none;
-      border-radius: 0;
-      &:hover:not(:disabled) {
-        background-image: none;
-      }
+      margin: 0px;
     }
   }
 }
 
+.register {
+  background: $primary !important;
+}
 
 /////////////////// Course search
 .find-courses, .university-profile {
@@ -141,6 +281,31 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
   float: none;
   display: inline-block;
 }
+
+.courses-container #discovery-form{
+  padding-top: 24px;
+
+}
+
+.courses-listing{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 10px;
+
+  .courses-listing-item{
+    width: calc(100%/3 - 20px);
+    margin: 10px;
+
+    .cover-image img{
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
+
+
 
 /////////////////// User profile
 .view-profile .profile-self .wrapper-profile-field-account-privacy {
@@ -158,6 +323,7 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
 // Account settings
 .wrapper-account-settings .wrapper-header {
   height: 100px;
+  
 }
 .wrapper-account-settings .wrapper-header .header-title {
   padding-top: 0;
@@ -166,10 +332,13 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
   border-bottom-color: $primary;
 }
 
+
+
 /////////////////// Footer
 .wrapper-footer {
   box-shadow: none;
   padding: 25px 40px;
+  background-color: #333;
   
   .wrapper-logo {
       display: none;
@@ -181,6 +350,44 @@ header.global-header .nav-links .secondary .dropdown-user-menu {
       display: inline-block;
   }
   footer#footer-openedx .footer-about-openedx a {
-      float: none;
+      float: right;
+      padding-top: 30px;
   }
+}
+
+#footer-openedx {
+  @include responsive;
+
+}
+
+
+.hero-main-banner {
+  margin-top: 66px;
+  height: 520px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.hero-text {
+  z-index: 2;
+  position: relative;
+  color: #fff;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.hero-text strong {
+  font-size: 6rem;
+}
+
+.hero-main-banner img {
+  position: absolute !important;
+  z-index: 1;
+  width: 100vw !important;
+  object-fit: cover !important;
+  height: 100% !important;
 }
